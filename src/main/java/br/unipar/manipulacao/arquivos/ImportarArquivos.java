@@ -1,6 +1,9 @@
 package br.unipar.manipulacao.arquivos;
 
+import br.unipar.manipulacao.arquivos.dao.PessoaDAO;
+import br.unipar.manipulacao.arquivos.dao.PessoaDAOImp;
 import br.unipar.manipulacao.arquivos.model.Pessoa;
+import br.unipar.manipulacao.arquivos.utils.EntityManagerUtil;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -60,6 +63,12 @@ public class ImportarArquivos {
                 pessoa.setCor(campos[22]);
                 
                 pessoaList.add(pessoa);
+                
+                PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
+                pessoaDAO.save(pessoa);
+                
+                
+
             }
             for (Pessoa pessoa : pessoaList) {
                 System.out.println(pessoa.toString());

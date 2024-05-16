@@ -1,6 +1,9 @@
 package br.unipar.manipulacao.arquivos;
 
+import br.unipar.manipulacao.arquivos.dao.PessoaDAO;
+import br.unipar.manipulacao.arquivos.dao.PessoaDAOImp;
 import br.unipar.manipulacao.arquivos.model.Pessoa;
+import br.unipar.manipulacao.arquivos.utils.EntityManagerUtil;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -219,9 +222,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
                 pessoa.setCor(campos[22]);
                 
                 pessoaList.add(pessoa);
+                
+                PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
+                pessoaDAO.save(pessoa);
             }
-            for (Pessoa pessoa : pessoaList) {
-                jTextArea1.append(pessoa.toString());
+            PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
+            List<Pessoa> pessoas = pessoaDAO.findAll();
+            for (Pessoa pessoa : pessoas) {
+                jTextArea1.append(pessoa.toString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Algo deu errado...."+e.getMessage());
