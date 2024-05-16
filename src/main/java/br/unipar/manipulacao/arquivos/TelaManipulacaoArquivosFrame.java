@@ -58,6 +58,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
             }
         });
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         textAreaArquivo.setViewportView(jTextArea1);
