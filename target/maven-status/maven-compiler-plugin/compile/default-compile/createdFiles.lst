@@ -1,5 +1,6 @@
 br\unipar\manipulacao\arquivos\ManipulacaoArquivos.class
 br\unipar\manipulacao\arquivos\dao\PessoaDAO.class
+br\unipar\manipulacao\arquivos\TelaManipulacaoArquivosFrame$3.class
 br\unipar\manipulacao\arquivos\model\Pessoa.class
 br\unipar\manipulacao\arquivos\TelaManipulacaoArquivosFrame$1.class
 br\unipar\manipulacao\arquivos\ImportarArquivos.class

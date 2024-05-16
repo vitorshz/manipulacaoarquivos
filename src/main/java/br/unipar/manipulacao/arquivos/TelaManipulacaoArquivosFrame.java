@@ -45,6 +45,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         btnBuscar = new javax.swing.JButton();
         textAreaArquivo = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        btnListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +62,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         jTextArea1.setRows(5);
         textAreaArquivo.setViewportView(jTextArea1);
 
+        btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelArquivosLayout = new javax.swing.GroupLayout(jPanelArquivos);
         jPanelArquivos.setLayout(jPanelArquivosLayout);
         jPanelArquivosLayout.setHorizontalGroup(
@@ -75,7 +83,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
                         .addComponent(textArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelArquivosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnListar)))
                 .addContainerGap())
         );
         jPanelArquivosLayout.setVerticalGroup(
@@ -87,7 +98,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
                     .addComponent(labelArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textAreaArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(textAreaArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(btnListar)
                 .addContainerGap())
         );
 
@@ -132,6 +145,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
+        List<Pessoa> pessoas = pessoaDAO.findAll();
+        for (Pessoa pessoa : pessoas) {
+            jTextArea1.append(pessoa.toString() + "\n");
+        }    }//GEN-LAST:event_btnListarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,6 +189,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnListar;
     private javax.swing.JPanel jPanelArquivos;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelArquivo;
@@ -225,12 +246,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
                 
                 PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
                 pessoaDAO.save(pessoa);
+                
+                
             }
-            PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
-            List<Pessoa> pessoas = pessoaDAO.findAll();
-            for (Pessoa pessoa : pessoas) {
-                jTextArea1.append(pessoa.toString() + "\n");
-            }
+            
         } catch (IOException e) {
             System.out.println("Algo deu errado...."+e.getMessage());
         }
