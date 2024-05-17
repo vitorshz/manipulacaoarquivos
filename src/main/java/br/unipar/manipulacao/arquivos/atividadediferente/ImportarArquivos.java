@@ -1,4 +1,4 @@
-package br.unipar.manipulacao.arquivos;
+package br.unipar.manipulacao.arquivos.atividadediferente;
 
 import br.unipar.manipulacao.arquivos.dao.PessoaDAO;
 import br.unipar.manipulacao.arquivos.dao.PessoaDAOImp;

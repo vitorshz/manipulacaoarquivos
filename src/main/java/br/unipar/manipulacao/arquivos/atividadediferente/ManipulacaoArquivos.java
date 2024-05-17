@@ -1,5 +1,5 @@
 
-package br.unipar.manipulacao.arquivos;
+package br.unipar.manipulacao.arquivos.atividadediferente;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

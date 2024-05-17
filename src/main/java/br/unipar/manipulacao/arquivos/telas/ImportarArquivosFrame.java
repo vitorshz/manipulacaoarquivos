@@ -46,7 +46,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         labelArquivo = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout jPanelArquivosLayout = new javax.swing.GroupLayout(jPanelArquivos);
         jPanelArquivos.setLayout(jPanelArquivosLayout);
@@ -123,10 +123,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
             textArquivo.setText(arquivo.getAbsolutePath());
             
             converterPessoa(arquivo);
-            
+            dispose();
         } else{
             textArquivo.setText("");
         }
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -160,6 +161,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                EntityManagerUtil.getEntityManagerFactory();
                 new ImportarArquivosFrame().setVisible(true);
             }
         });
@@ -225,7 +227,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
    
             }
             JOptionPane.showMessageDialog(this, "Arquivo importado com sucesso! ");
-            dispose();
+            
 
         } catch (IOException e) {
             System.out.println("Algo deu errado...."+e.getMessage());
@@ -233,7 +235,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
     }
         @Override
         public void dispose() {
-            EntityManagerUtil.closeEntityManagerFactory();
+
             super.dispose();
         }
 }

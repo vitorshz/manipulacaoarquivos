@@ -1,6 +1,17 @@
 package br.unipar.manipulacao.arquivos;
 
+import br.unipar.manipulacao.arquivos.dao.PessoaDAO;
+import br.unipar.manipulacao.arquivos.dao.PessoaDAOImp;
+import br.unipar.manipulacao.arquivos.model.Pessoa;
+import br.unipar.manipulacao.arquivos.telas.ExportarArquivoFrame;
 import br.unipar.manipulacao.arquivos.telas.ImportarArquivosFrame;
+import br.unipar.manipulacao.arquivos.utils.EntityManagerUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 public class MenuFrame extends javax.swing.JFrame {
@@ -10,6 +21,44 @@ public class MenuFrame extends javax.swing.JFrame {
      */
     public MenuFrame() {
         initComponents();
+
+        setSize(1500, 1000);
+        
+        // Criando a barra de menu
+        JMenuBar menuBar = new JMenuBar();
+
+        //Criar Menu Cadastro
+        JMenu menuImportar = new JMenu("Importar");
+
+        //Criar Menu Cliente dentro do Menu Cadastro
+        JMenu menuExportar = new JMenu("Exportar");
+
+        //Criar menus de cadastro e lista de clientes
+        JMenuItem importar = new JMenuItem("Importar arquivo");
+        JMenuItem exportar = new JMenuItem("Exportar arquivo");
+        
+         //Adicionar menus de cadastro no menu Cliente
+        menuImportar.add(importar);
+        menuExportar.add(exportar);
+
+        menuBar.add(menuImportar);
+        menuBar.add(menuExportar);
+        
+        setJMenuBar(menuBar);
+        //Adiciona ações menus clientes
+        importar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ImportarArquivosFrame().setVisible(true);
+                atualizarLista();
+            }
+        });
+        
+        exportar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ExportarArquivoFrame().setVisible(true);
+            }
+        });
+
     }
 
     /**
@@ -23,48 +72,42 @@ public class MenuFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Importar/Exportar Arquivo CSV");
 
-        jButton1.setText("Importar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Exportar");
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(53, 53, 53)
-                .addComponent(jButton2)
-                .addGap(91, 91, 91))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,10 +129,6 @@ public class MenuFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ImportarArquivosFrame().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,15 +160,28 @@ public class MenuFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuFrame().setVisible(true);
+                EntityManagerUtil.getEntityManagerFactory();
+                MenuFrame menu = new MenuFrame();
+                menu.setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
+
+    private void atualizarLista() {
+        PessoaDAO pessoaDAO = new PessoaDAOImp(EntityManagerUtil.getManager());
+        List<Pessoa> pessoas = pessoaDAO.findAll();
+
+        for (Pessoa pessoa : pessoas) {
+            jTextArea1.append(pessoa.toString());
+        }
+
+    }
 }
