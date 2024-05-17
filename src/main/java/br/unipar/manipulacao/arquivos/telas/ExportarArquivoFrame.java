@@ -27,6 +27,7 @@ public class ExportarArquivoFrame extends javax.swing.JFrame {
     public ExportarArquivoFrame() {
         initComponents();
         atualizarLista();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -173,6 +174,7 @@ public class ExportarArquivoFrame extends javax.swing.JFrame {
 
                 }
                 JOptionPane.showMessageDialog(null, "Arquivo exportado com sucesso! Verifique o caminho:" + d);
+                dispose();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "erro ao escrever as pessoas");
             }
@@ -233,5 +235,9 @@ public class ExportarArquivoFrame extends javax.swing.JFrame {
                jTextArea1.append(pessoa.toString()); 
             }
                    
+        }
+    @Override
+        public void dispose() {
+            super.dispose();
         }
 }
