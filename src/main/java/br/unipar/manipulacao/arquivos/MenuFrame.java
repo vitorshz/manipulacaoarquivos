@@ -1,14 +1,10 @@
 package br.unipar.manipulacao.arquivos;
 
-import br.unipar.manipulacao.arquivos.dao.PessoaDAO;
-import br.unipar.manipulacao.arquivos.dao.PessoaDAOImp;
-import br.unipar.manipulacao.arquivos.model.Pessoa;
 import br.unipar.manipulacao.arquivos.telas.ExportarArquivoFrame;
 import br.unipar.manipulacao.arquivos.telas.ImportarArquivosFrame;
 import br.unipar.manipulacao.arquivos.utils.EntityManagerUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
